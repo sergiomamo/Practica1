@@ -1,0 +1,11 @@
+{% extends "root.html" %}
+{% block contingut %}
+<h1>Books</h1>
+{% if sobres %}
+<ul>{% for books in practica1 %}
+<li>{{books.title}} - {{books.author}} - {{books.editorial}}</li>
+{% endfor %}</ul>
+{% else %}
+<h2>No hi ha res per tu</h2>
+{% endif %}
+{% endblock %}
