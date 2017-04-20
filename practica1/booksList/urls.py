@@ -1,62 +1,42 @@
 from django.conf.urls import url
 from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
-from models import Author, Book, Genere
+from django.views.generic.base import TemplateView
+
+from models import Author, Books, Genere
+from forms import BooksForm
+from views import BooksCreate, BooksDetail, review, mainpage
 
 urlpatterns = [
-    url(r'^$', dashboard), # Entre parentesis sera un parametre
-    # El + es una vez o mas
-    # [a-zA-Z0-9]+ --> \w+ quiere decir que no este en blanco
-    # \w+.\w+ una palabra.otrapalabra
-    url(r'^$', mainpage),
-    url(r'^admin/', include(admin.site.urls)),
-]
-"""urlpatterns = [
-    # List latest 5 restaurants: /myrestaurants/
-    url(r'^$',
+    # List latest 5 restaurants: /booksList/
+    url(r'^$', TemplateView.as_view(template_name = 'base.html'), name='home'),
+    url(r'^books/$',
         ListView.as_view(
-            template_name='principal.html'),
+            queryset=Books.objects.filter(date__lte=timezone.now()).order_by('date')[:5],
+            context_object_name='latest_books_list',
+            template_name='books/books_list.html'),
+        name='books_list'),
 
     # Restaurant details, ex.: /myrestaurants/restaurants/1/
-    url(r'^bookList/(?P<pk>\d+)/$',
-        RestaurantDetail.as_view(),
-        name='restaurant_detail'),
-
-    # Restaurant dish details, ex: /myrestaurants/restaurants/1/dishes/1/
-    url(r'^restaurants/(?P<pkr>\d+)/dishes/(?P<pk>\d+)/$',
-        DetailView.as_view(
-            model=Dish,
-            template_name='myrestaurants/dish_detail.html'),
-        name='dish_detail'),
+    url(r'^books/(?P<pk>\d+)/$',
+        BooksDetail.as_view(),
+        name='books_detail'),
 
     # Create a restaurant, /myrestaurants/restaurants/create/
-    url(r'^restaurants/create/$',
-        RestaurantCreate.as_view(),
-        name='restaurant_create'),
+    url(r'^books/create/$',
+        BooksCreate.as_view(),
+        name='books_create'),
 
     # Edit restaurant details, ex.: /myrestaurants/restaurants/1/edit/
-    url(r'^restaurants/(?P<pk>\d+)/edit/$',
+    url(r'^books/(?P<pk>\d+)/edit/$',
         UpdateView.as_view(
-            model=Restaurant,
-            template_name='myrestaurants/form.html',
-            form_class=RestaurantForm),
-        name='restaurant_edit'),
-
-    # Create a restaurant dish, ex.: /myrestaurants/restaurants/1/dishes/create/
-    url(r'^restaurants/(?P<pk>\d+)/dishes/create/$',
-        DishCreate.as_view(),
-        name='dish_create'),
-
-    # Edit restaurant dish details, ex.: /myrestaurants/restaurants/1/dishes/1/edit/
-    url(r'^restaurants/(?P<pkr>\d+)/dishes/(?P<pk>\d+)/edit/$',
-        UpdateView.as_view(
-            model=Dish,
-            template_name='myrestaurants/form.html',
-            form_class=DishForm),
-        name='dish_edit'),
+            model=Books,
+            template_name='booksList/form.html',
+            form_class=BooksForm),
+        name='books_edit'),
 
     # Create a restaurant review, ex.: /myrestaurants/restaurants/1/reviews/create/
-    url(r'^restaurants/(?P<pk>\d+)/reviews/create/$',
+    url(r'^books/(?P<pk>\d+)/reviews/create/$',
         review,
         name='review_create'),
-]"""
+]

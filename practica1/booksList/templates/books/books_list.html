@@ -1,0 +1,19 @@
+{%  extends  "base.html"  %}
+    {%  block  content  %}
+        <h1>
+            Books
+            {%  if  user  %}
+                (<a  href="{%  url  'booksList:books_create'  %}">add</a>)
+            {%  endif  %}
+        </h1>
+        <ul>
+            {%  for  books  in  latest_books_list  %}
+                <li>
+                    <a  href="{%  url  'booksList:books_detail'  books.id  %}"> {{  books.title  }}
+                    </a>
+                </li>
+            {%  empty  %}
+                <li>Sorry,  no  books  registered  yet.</li>
+            {%  endfor  %}
+        </ul>
+    {%  endblock  %}

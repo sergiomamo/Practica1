@@ -1,40 +1,41 @@
-from django.contrib.auth.models import User
-from django.http import Http404, HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, render_to_response
-from django.template import Context
-from django.template.loader import get_template
+from django.views.generic import DetailView
+from django.views.generic.edit import CreateView
+from models import Author, Books, Genere, BooksReview
+from forms import BooksForm
 
 
-# Create your views here.
 def mainpage(request):
-    return render_to_response('base.html',{
-        'appname': "booksList",
-        'titlepage': 'Books',
-        "author": "Eduard i Sergio"
-    })
+    return render_to_response('base.html')
 
-"""class BookDetail(DetailView):
+class BooksDetail(DetailView):
     model = Books
-    template_name = 'templates/book_detail.html'
+    template_name = 'books/books_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(BookDetail, self).get_context_data(**kwargs)
-        context['RATING_CHOICES'] = BookReview.RATING_CHOICES
-        return context"""
+        context = super(BooksDetail, self).get_context_data(**kwargs)
+        context['RATING_CHOICES'] = BooksReview.RATING_CHOICES
+        return context
 
-def dashboard(request, usuari):
-    #si no existe el usuario devuelve una excepcion
-    try:
-        user = User.objects.get(username=usuari)
-    except:
-        raise Http404("Usuari no existeix"+usuari)
+class BooksCreate(CreateView):
+    model = Books
+    template_name = 'booksList/form.html'
+    form_class = BooksForm
 
-    sobres = user.sobre_set.all(); # El all me retorne tots
-    template = get_template("dashboard.html")
-    variables = Context({
-        "username": usuari,
-        "author": "Eduard i Sergio",
-        "sobres": sobres
-    })
-    page = template.render(variables)
-    return HttpResponse(page)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(BooksCreate, self).form_valid(form)
+
+def review(request, pk):
+    books = get_object_or_404(Books, pk=pk)
+    reviews = BooksReview(
+        rating=request.POST['rating'],
+        comment=request.POST['comment'],
+        user=request.user,
+        books=books)
+    reviews.save()
+    return HttpResponseRedirect(reverse('booksList:books_detail',
+                                        args=(books.id,)))

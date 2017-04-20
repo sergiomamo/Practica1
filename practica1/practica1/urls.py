@@ -17,15 +17,9 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
 
-from booksList.views import mainpage, dashboard
-
 urlpatterns = [
-    # El + es una vez o mas
-    # [a-zA-Z0-9]+ --> \w+ quiere decir que no este en blanco
-    # \w+.\w+ una palabra.otrapalabra
-    url(r'^$', mainpage),
-    url(r'^bookslist/(\w+)/$', dashboard), # Entre parentesis sera un parametre
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^booksList/', include('booksList.urls', namespace='booksList')),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
-    url(r'^admin/', include(admin.site.urls)),
 ]

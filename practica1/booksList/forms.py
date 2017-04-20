@@ -1,6 +1,9 @@
-from django import forms
-from models import Book
+from django.forms import ModelForm
+from models import Books
+
 
 class BooksForm(ModelForm):
     class Meta:
-        model = Book
+        model = Books
+        fields = "__all__"
+        exclude = ('user', 'date',)

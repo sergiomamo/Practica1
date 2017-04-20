@@ -12,7 +12,8 @@ class Author(models.Model):
     def __unicode__(self):
         return self.name
 
-class Book(models.Model):
+
+class Books(models.Model):
     title = models.TextField(max_length=50)
     author = models.TextField(max_length=50)
     isbn = models.IntegerField()
@@ -27,13 +28,17 @@ class Book(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('booksList:books_detail',
+                       kwargs={'pk': self.pk})
+
 class Genere(models.Model):
     name = models.TextField(max_length=50)
 
     def __unicode__(self):
         return self.name
 
-"""class Review(models.Model):
+class Review(models.Model):
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
     rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
@@ -43,5 +48,5 @@ class Genere(models.Model):
     class Meta:
         abstract = True
 
-class BookReview(Review):
-    book = models.ForeignKey(Book)"""
+class BooksReview(Review):
+    books = models.ForeignKey(Books)

@@ -1,0 +1,66 @@
+{%  extends  "base.html"  %}
+    {%  block  content  %}
+        <h1>
+            {{  books.title  }}
+                {%  if  user  ==  books.user  %}
+                    (<a  href="{%  url  'booksList:books_edit'  books.id  %}">edit</a>)
+                {%  endif  %}
+        </h1>
+        <h2>
+            Author:
+        </h2>
+            <p>
+                {{  books.author  }}
+            </p>
+        <h2>
+            Genere:
+        </h2>
+            <p>
+                {{  books.genere  }}
+            </p>
+        <h2>
+            ISBN:
+        </h2>
+            <p>
+                {{  books.isbn  }}
+            </p>
+        <h2>
+            Editorial:
+        </h2>
+            <p>
+                {{  books.editorial  }}
+            </p>
+        <h2>
+            Rating:
+        </h2>
+            <p>
+                {{  books.rating  }}
+            </p>
+
+<h2>Reviews</h2>
+    <ul>
+        {%  for  review  in  books.BooksReview_set.all  %}
+            <li>
+                <p>{{  review.rating  }}  star{{  review.rating|pluralize  }}</p>
+                <p>{{  review.comment  }}</p>
+                <p>Created  by  {{  review.user  }}  on  {{  review.date  }}</p>
+            </li>
+        {%  endfor  %}
+    </ul>
+        <h3>Add Review</h3>
+            <form  action="{%  url  'booksList:review_create'  books.id  %}"  method="post">
+            {%  csrf_token  %}
+                Message:  <textarea  name="comment"  id="comment"  rows="4"></textarea>
+                <p>Rating:</p>
+                <p>{%  for  rate  in  RATING_CHOICES  %}
+                    <input  type="radio"  name="rating"  id="rating{{  forloop.counter  }}"  value="{{  rate.0}}"  />
+                    <label  for="choice{{  forloop.counter  }}">{{  rate.1}}  star{{  rate.0|pluralize  }}</label>
+                    <br/>
+                {%  endfor  %}
+                </p>
+            <input  type="submit"  value="Review"  />
+            </form>
+    {%  endblock  %}
+{%  block  footer  %}
+    Created  by  {{  books.user  }}  on  {{  books.date  }}
+{%  endblock  %}
