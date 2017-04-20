@@ -1,0 +1,19 @@
+{%  extends  "base.html"  %}
+    {%  block  content  %}
+        <h1>
+            Author
+            {%  if  user  %}
+                (<a  href="{%  url  'booksList:author_create'  %}">add</a>)
+            {%  endif  %}
+        </h1>
+        <ul>
+            {%  for  author  in  latest_author_list  %}
+                <li>
+                    <a  href="{%  url  'booksList:author_detail'  author.id  %}"> {{  author.name  }}
+                    </a>
+                </li>
+            {%  empty  %}
+                <li>Sorry,  no  author  registered  yet.</li>
+            {%  endfor  %}
+        </ul>
+    {%  endblock  %}

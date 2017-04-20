@@ -8,9 +8,14 @@ class Author(models.Model):
     age = models.IntegerField()
     country = models.TextField(max_length=50)
     nacionalidad = models.TextField(max_length=50)
+    user = models.ForeignKey(User,default=1)
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('booksList:author_detail',
+                       kwargs={'pk': self.pk})
 
 
 class Books(models.Model):
@@ -50,3 +55,6 @@ class Review(models.Model):
 
 class BooksReview(Review):
     books = models.ForeignKey(Books)
+
+class AuthorReview(Review):
+    author = models.ForeignKey(Author)
