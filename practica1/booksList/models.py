@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from datetime import date
 
 class Author(models.Model):
+    ''' Author atributes database '''
     name = models.TextField(max_length=50)
     age = models.IntegerField()
     country = models.TextField(max_length=50)
@@ -19,6 +20,7 @@ class Author(models.Model):
 
 
 class Books(models.Model):
+    ''' Books atributes database '''
     title = models.TextField(max_length=50)
     author = models.TextField(max_length=50)
     isbn = models.IntegerField()
@@ -38,12 +40,14 @@ class Books(models.Model):
                        kwargs={'pk': self.pk})
 
 class Genere(models.Model):
+    ''' Genere atributes '''
     name = models.TextField(max_length=50)
 
     def __unicode__(self):
         return self.name
 
 class Review(models.Model):
+    ''' Review atributes '''
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
     rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
@@ -54,7 +58,9 @@ class Review(models.Model):
         abstract = True
 
 class BooksReview(Review):
+    ''' Books ForeignKey '''
     books = models.ForeignKey(Books)
 
 class AuthorReview(Review):
+    ''' Author ForeignKey '''
     author = models.ForeignKey(Author)

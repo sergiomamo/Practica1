@@ -9,9 +9,11 @@ from forms import BooksForm, AuthorForm
 
 
 def mainpage(request):
+    ''' Return template base.html '''
     return render_to_response('base.html')
 
 class BooksDetail(DetailView):
+    ''' Return Books detail, use template books_detail.html '''
     model = Books
     template_name = 'books/books_detail.html'
 
@@ -21,6 +23,7 @@ class BooksDetail(DetailView):
         return context
 
 class AuthorDetail(DetailView):
+    ''' Return Author detail, use template author_detail.html '''
     model = Author
     template_name = 'author/author_detail.html'
 
@@ -30,6 +33,7 @@ class AuthorDetail(DetailView):
         return context
 
 class BooksCreate(CreateView):
+    ''' Create Books, use template form.html '''
     model = Books
     template_name = 'booksList/form.html'
     form_class = BooksForm
@@ -39,6 +43,7 @@ class BooksCreate(CreateView):
         return super(BooksCreate, self).form_valid(form)
 
 class AuthorCreate(CreateView):
+    ''' Create Author, use template form.html '''
     model = Author
     #template_name = 'booksList/form.html'
     form_class = AuthorForm
