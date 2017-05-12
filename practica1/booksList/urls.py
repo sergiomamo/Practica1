@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 
 from models import Author, Books, Genere
 from forms import BooksForm, AuthorForm
-from views import BooksCreate, AuthorCreate, BooksDetail, AuthorDetail, review, mainpage, reviewAuthor
+from views import BooksCreate, AuthorCreate, BooksDetail, AuthorDetail, review, mainpage, AuthorDelete, BooksDelete,reviewAuthor
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name = 'base.html'), name='home'),
@@ -60,4 +60,12 @@ urlpatterns = [
     url(r'^author/(?P<pk>\d+)/reviews/create/$',
         reviewAuthor,
         name='review_author_create'),
+
+    url(r'^author/(?P<pk>\d+)/delete/$',
+        AuthorDelete,
+        name='author_delete'),
+
+    url(r'^books/(?P<pk>\d+)/delete/$',
+        BooksDelete,
+        name='books_delete'),
 ]

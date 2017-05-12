@@ -12,6 +12,7 @@ def mainpage(request):
     ''' Return template base.html '''
     return render_to_response('base.html')
 
+
 class BooksDetail(DetailView):
     ''' Return Books detail, use template books_detail.html '''
     model = Books
@@ -21,6 +22,7 @@ class BooksDetail(DetailView):
         context = super(BooksDetail, self).get_context_data(**kwargs)
         context['RATING_CHOICES'] = BooksReview.RATING_CHOICES
         return context
+
 
 class AuthorDetail(DetailView):
     ''' Return Author detail, use template author_detail.html '''
@@ -32,6 +34,7 @@ class AuthorDetail(DetailView):
         context['RATING_CHOICES'] = AuthorReview.RATING_CHOICES
         return context
 
+
 class BooksCreate(CreateView):
     ''' Create Books, use template form.html '''
     model = Books
@@ -42,6 +45,7 @@ class BooksCreate(CreateView):
         form.instance.user = self.request.user
         return super(BooksCreate, self).form_valid(form)
 
+
 class AuthorCreate(CreateView):
     ''' Create Author, use template form.html '''
     model = Author
@@ -51,6 +55,7 @@ class AuthorCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(AuthorCreate, self).form_valid(form)
+
 
 def review(request, pk):
     books = get_object_or_404(Books, pk=pk)
@@ -63,6 +68,7 @@ def review(request, pk):
     return HttpResponseRedirect(reverse('booksList:books_detail',
                                         args=(books.id,)))
 
+
 def reviewAuthor(request, pk):
     author = get_object_or_404(Author, pk=pk)
     reviews = AuthorReview(
@@ -73,3 +79,17 @@ def reviewAuthor(request, pk):
     reviews.save()
     return HttpResponseRedirect(reverse('booksList:author_detail',
                                         args=(author.id,)))
+
+
+def AuthorDelete(request, pk):
+    '''Author delete'''
+    author = get_object_or_404(Author, pk=pk)
+    author.delete()
+    return HttpResponseRedirect(reverse('booksList:author_list', ))
+
+
+def BooksDelete(request, pk):
+    '''Books delete'''
+    books = get_object_or_404(Books, pk=pk)
+    books.delete()
+    return HttpResponseRedirect(reverse('booksList:books_list', ))

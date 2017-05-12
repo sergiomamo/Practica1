@@ -4,6 +4,7 @@
             {{  author.name  }}
                 {%  if  user  ==  author.user  %}
                     (<a  href="{%  url  'booksList:author_edit'  author.id  %}">edit</a>)
+                    (<a  href="{%  url  'booksList:author_delete'  author.id  %}">delete</a>)
                 {%  endif  %}
         </h1>
         <h2>
