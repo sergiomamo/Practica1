@@ -42,22 +42,22 @@ urlpatterns = [
     url(r'^books/(?P<pk>\d+)/edit/$',
         UpdateView.as_view(
             model=Books,
-            template_name='booksList/form.html',
+            template_name='form.html',
             form_class=BooksForm),
         name='books_edit'),
 
     url(r'^author/(?P<pk>\d+)/edit/$',
         UpdateView.as_view(
             model=Author,
-            template_name='booksList/form.html',
+            template_name='form.html',
             form_class=AuthorForm),
-        name='books_edit'),
+        name='author_edit'),
 
     url(r'^books/(?P<pk>\d+)/reviews/create/$',
         review,
-        name='review_create'),
+        name='review_books_create'),
 
     url(r'^author/(?P<pk>\d+)/reviews/create/$',
         reviewAuthor,
-        name='review_create'),
+        name='review_author_create'),
 ]

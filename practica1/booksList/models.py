@@ -24,7 +24,7 @@ class Books(models.Model):
     title = models.TextField(max_length=50)
     author = models.TextField(max_length=50)
     isbn = models.IntegerField()
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=date.today())
     editorial = models.TextField(max_length=50)
     rating = models.IntegerField()
     reviews = models.IntegerField()

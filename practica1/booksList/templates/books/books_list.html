@@ -6,9 +6,9 @@
                 (<a  href="{%  url  'booksList:books_create'  %}">add</a>)
             {%  endif  %}
         </h1>
-        <ul>
+        <ul id="list_elem_ul">
             {%  for  books  in  latest_books_list  %}
-                <li>
+                <li id="list_elem">
                     <a  href="{%  url  'booksList:books_detail'  books.id  %}"> {{  books.title  }}
                     </a>
                 </li>

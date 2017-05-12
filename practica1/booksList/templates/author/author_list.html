@@ -6,9 +6,9 @@
                 (<a  href="{%  url  'booksList:author_create'  %}">add</a>)
             {%  endif  %}
         </h1>
-        <ul>
+        <ul id="list_elem_ul">
             {%  for  author  in  latest_author_list  %}
-                <li>
+                <li id="list_elem">
                     <a  href="{%  url  'booksList:author_detail'  author.id  %}"> {{  author.name  }}
                     </a>
                 </li>

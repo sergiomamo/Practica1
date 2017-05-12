@@ -19,12 +19,12 @@
     <div  id="sidebar">
     {%  block  sidebar  %}
         {%  if  user.username  %}
-            <ul>
-                <li>
-                    <a  href="books/">Book list</a>
+            <ul id="menu_list">
+                <li id="element_list">
+                    <a  href="/books">Book list</a>
                 </li>
-                <li>
-                    <a  href="author/">Author list</a>
+                <li id="element_list">
+                    <a  href="/author">Author list</a>
                 </li>
             </ul>
         {%  endif  %}

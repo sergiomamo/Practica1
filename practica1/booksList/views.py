@@ -35,7 +35,7 @@ class AuthorDetail(DetailView):
 class BooksCreate(CreateView):
     ''' Create Books, use template form.html '''
     model = Books
-    template_name = 'booksList/form.html'
+    template_name = 'form.html'
     form_class = BooksForm
 
     def form_valid(self, form):
@@ -45,7 +45,7 @@ class BooksCreate(CreateView):
 class AuthorCreate(CreateView):
     ''' Create Author, use template form.html '''
     model = Author
-    #template_name = 'booksList/form.html'
+    template_name = 'form.html'
     form_class = AuthorForm
 
     def form_valid(self, form):
