@@ -38,18 +38,20 @@
         {%  endfor  %}
     </ul>
         <h3>Add Review</h3>
-            <form  action="{%  url  'booksList:review_author_create'  author.id  %}"  method="post">
-            {%  csrf_token  %}
-                Message:  <textarea  name="comment"  id="comment"  rows="4"></textarea>
-                <p>Rating:</p>
-                <p>{%  for  rate  in  RATING_CHOICES  %}
-                    <input  type="radio"  name="rating"  id="rating{{  forloop.counter  }}"  value="{{  rate.0}}"  />
-                    <label  for="choice{{  forloop.counter  }}">{{  rate.1}}  star{{  rate.0|pluralize  }}</label>
-                    <br/>
-                {%  endfor  %}
-                </p>
-            <input  type="submit"  value="Review"  />
-            </form>
+            {%  if  user.is_authenticated  %}
+                <form  action="{%  url  'booksList:review_author_create'  author.id  %}"  method="post">
+                {%  csrf_token  %}
+                    Message:  <textarea  name="comment"  id="comment"  rows="4"></textarea>
+                    <p>Rating:</p>
+                    <p>{%  for  rate  in  RATING_CHOICES  %}
+                        <input  type="radio"  name="rating"  id="rating{{  forloop.counter  }}"  value="{{  rate.0}}"  />
+                        <label  for="choice{{  forloop.counter  }}">{{  rate.1}}  star{{  rate.0|pluralize  }}</label>
+                        <br/>
+                    {%  endfor  %}
+                    </p>
+                <input  type="submit"  value="Review"  />
+                </form>
+            {% endif %}
     {%  endblock  %}
 {%  block  footer  %}
     Created  by  {{  author.user  }}

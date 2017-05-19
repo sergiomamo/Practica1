@@ -2,7 +2,7 @@
     {%  block  content  %}
         <h1>
             Books
-            {%  if  user  %}
+            {%  if  user.is_authenticated  %}
                 (<a  href="{%  url  'booksList:books_create'  %}">add</a>)
             {%  endif  %}
         </h1>

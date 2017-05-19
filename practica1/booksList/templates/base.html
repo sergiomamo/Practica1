@@ -22,16 +22,14 @@
     </div>
     <div  id="sidebar">
     {%  block  sidebar  %}
-        {%  if  user.username  %}
-            <ul id="menu_list">
-                <li id="element_list">
-                    <a  href="/books">Book list</a>
-                </li>
-                <li id="element_list">
-                    <a  href="/author">Author list</a>
-                </li>
-            </ul>
-        {%  endif  %}
+        <ul id="menu_list">
+            <li id="element_list">
+                <a  href="/books">Book list</a>
+            </li>
+            <li id="element_list">
+                <a  href="/author">Author list</a>
+            </li>
+        </ul>
     {%  endblock  %}
     </div>
     <div  id="content">
