@@ -28,6 +28,9 @@ textarea, input[type=number], input[type=url]
     height: 1.25em;
     width: 25em;
 }
+h1{
+    text-align: center;
+}
 
 /*Style menu*/
 #menu_list {

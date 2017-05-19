@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from datetime import date
 
+
 class Author(models.Model):
     ''' Author atributes database '''
     name = models.TextField(max_length=50)
@@ -22,7 +23,7 @@ class Author(models.Model):
 class Books(models.Model):
     ''' Books atributes database '''
     title = models.TextField(max_length=50)
-    author = models.TextField(max_length=50)
+    author = models.ForeignKey(Author,default=1)
     isbn = models.IntegerField()
     date = models.DateTimeField(default=date.today())
     editorial = models.TextField(max_length=50)

@@ -1,11 +1,13 @@
-from django.conf.urls import url
+from django.conf.urls import url, patterns, include
 from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
 from django.views.generic.base import TemplateView
+from rest_framework.urlpatterns	import format_suffix_patterns
 
 from models import Author, Books, Genere
 from forms import BooksForm, AuthorForm
-from views import BooksCreate, AuthorCreate, BooksDetail, AuthorDetail, review, mainpage, AuthorDelete, BooksDelete,reviewAuthor
+from views import BooksCreate, AuthorCreate, BooksDetail, AuthorDetail, review, mainpage, \
+    AuthorDelete, BooksDelete,reviewAuthor, AuthorListAPI, AuthorDetailAPI, BooksListAPI, BooksDetailAPI
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name = 'base.html'), name='home'),
@@ -68,4 +70,19 @@ urlpatterns = [
     url(r'^books/(?P<pk>\d+)/delete/$',
         BooksDelete,
         name='books_delete'),
+
+    # RESTful API
+    url(r'^api/author/$', AuthorListAPI.as_view(), name='author-list'),
+    url(r'^api/author/(?P<pk>\d+)/$', AuthorDetailAPI.as_view(), name='author-detail'),
+    url(r'^api/books/$', BooksListAPI.as_view(), name='books-list'),
+    url(r'^api/books/(?P<pk>\d+)/$', BooksDetailAPI.as_view(), name='books-detail'),
 ]
+
+#	Format	suffixes
+urlpatterns	= format_suffix_patterns(urlpatterns, allowed=['json', 'api'])
+
+
+#	Default	login/logout	views
+urlpatterns	+= patterns('',
+                url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+)

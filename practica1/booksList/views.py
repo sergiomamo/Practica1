@@ -7,6 +7,12 @@ from django.views.generic.edit import CreateView
 from models import Author, Books, Genere, BooksReview, AuthorReview
 from forms import BooksForm, AuthorForm
 
+from rest_framework	import generics
+from rest_framework.decorators	import api_view
+from rest_framework.reverse	import reverse
+from rest_framework.response	import Response
+from serializers import AuthorSerializer, BooksSerializer
+
 
 def mainpage(request):
     ''' Return template base.html '''
@@ -93,3 +99,50 @@ def BooksDelete(request, pk):
     books = get_object_or_404(Books, pk=pk)
     books.delete()
     return HttpResponseRedirect(reverse('booksList:books_list', ))
+
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    """
+    The	entry endpoint of our API.
+    """
+    return Response({
+        'author': reverse('author-list', request=request),
+        'books': reverse('books-list', request=request),
+    })
+
+
+class AuthorListAPI(generics.ListCreateAPIView):
+    """
+    API	endpoint that represents a list	of	author.
+    """
+    model = Author
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+
+class AuthorDetailAPI(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API	endpoint that represents a single author.
+    """
+    model = Author
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+
+class BooksListAPI(generics.ListCreateAPIView):
+    """
+    API	endpoint that represents a list of books.
+    """
+    model = Books
+    queryset = Books.objects.all()
+    serializer_class = BooksSerializer
+
+
+class BooksDetailAPI(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API	endpoint	that	represents	a	single	books.
+    """
+    model = Books
+    queryset = Books.objects.all()
+    serializer_class = BooksSerializer
