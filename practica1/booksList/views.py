@@ -101,6 +101,7 @@ def BooksDelete(request, pk):
     return HttpResponseRedirect(reverse('booksList:books_list', ))
 
 
+
 @api_view(['GET'])
 def api_root(request, format=None):
     """
