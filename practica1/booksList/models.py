@@ -8,8 +8,9 @@ class Author(models.Model):
     ''' Author atributes database '''
     name = models.TextField(max_length=50)
     age = models.IntegerField()
-    country = models.TextField(max_length=50)
-    nacionalidad = models.TextField(max_length=50)
+    city = models.TextField(max_length=50, null= True)
+    country = models.TextField(max_length=50, null= True)
+    state = models.TextField(max_length=50, null= True)
     user = models.ForeignKey(User,default=1)
 
     def __unicode__(self):
