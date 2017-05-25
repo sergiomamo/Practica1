@@ -6,7 +6,7 @@ from rest_framework.urlpatterns	import format_suffix_patterns
 
 from models import Author, Books, Genere
 from forms import BooksForm, AuthorForm
-from views import BooksCreate, AuthorCreate, BooksDetail, AuthorDetail, review, mainpage, \
+from views import BooksCreate, AuthorCreate, BooksDetail, AuthorDetail, reviewBooks, mainpage, \
     AuthorDelete, BooksDelete,reviewAuthor, AuthorListAPI, AuthorDetailAPI, BooksListAPI, BooksDetailAPI
 
 urlpatterns = [
@@ -56,7 +56,7 @@ urlpatterns = [
         name='author_edit'),
 
     url(r'^books/(?P<pk>\d+)/reviews/create/$',
-        review,
+        reviewBooks,
         name='review_books_create'),
 
     url(r'^author/(?P<pk>\d+)/reviews/create/$',

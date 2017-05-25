@@ -63,16 +63,17 @@ class AuthorCreate(CreateView):
         return super(AuthorCreate, self).form_valid(form)
 
 
-def review(request, pk):
+def reviewBooks(request, pk):
     books = get_object_or_404(Books, pk=pk)
+    #if BooksReview.objects.filter(books=books, user=request.user).exists():
+     #   BooksReview.objects.get(books=books, user=request.user).delete()
     reviews = BooksReview(
         rating=request.POST['rating'],
         comment=request.POST['comment'],
         user=request.user,
         books=books)
     reviews.save()
-    return HttpResponseRedirect(reverse('booksList:books_detail',
-                                        args=(books.id,)))
+    return HttpResponseRedirect(reverse('booksList:books_detail', args=(books.id,)))
 
 
 def reviewAuthor(request, pk):

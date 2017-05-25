@@ -40,7 +40,7 @@
 
 <h2>Reviews</h2>
     <ul>
-        {%  for  review  in  books.BooksReview_set.all  %}
+        {%  for  review  in  books.booksreview_set.all  %}
             <li>
                 <p>{{  review.rating  }}  star{{  review.rating|pluralize  }}</p>
                 <p>{{  review.comment  }}</p>
@@ -49,20 +49,22 @@
         {%  endfor  %}
     </ul>
         <h3>Add Review</h3>
-            {%  if  user.is_authenticated  %}
-                <form  action="{%  url  'booksList:review_books_create'  books.id  %}"  method="post">
-                {%  csrf_token  %}
-                    Message:  <textarea  name="comment"  id="comment"  rows="4"></textarea>
-                    <p>Rating:</p>
-                    <p>{%  for  rate  in  RATING_CHOICES  %}
-                        <input  type="radio"  name="rating"  id="rating{{  forloop.counter  }}"  value="{{  rate.0}}"  />
-                        <label  for="choice{{  forloop.counter  }}">{{  rate.1}}  star{{  rate.0|pluralize  }}</label>
-                        <br/>
-                    {%  endfor  %}
-                    </p>
-                <input  type="submit"  value="Review"  />
-                </form>
-            {%  endif %}
+        {%  if  user.is_authenticated  %}
+            <form  action="{%  url  'booksList:review_books_create'  books.id  %}"  method="post">
+            {%  csrf_token  %}
+                Message:  <textarea  name="comment"  id="comment"  rows="4"></textarea>
+                <p>Rating:</p>
+                <p>{%  for  rate  in  RATING_CHOICES  %}
+                    <input  type="radio"  name="rating"  id="rating{{  forloop.counter  }}"  value="{{  rate.0}}"  />
+                    <label  for="choice{{  forloop.counter  }}">{{  rate.1}}  star{{  rate.0|pluralize  }}</label>
+                    <br/>
+                {%  endfor  %}
+                </p>
+            <input  type="submit"  value="Review"  />
+            </form>
+        {% else %}
+            <p>Please, log in first</p>
+        {%  endif  %}
     {%  endblock  %}
 {%  block  footer  %}
     Created  by  {{  books.user  }}  on  {{  books.date  }}
