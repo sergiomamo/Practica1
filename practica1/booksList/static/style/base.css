@@ -125,6 +125,17 @@ text-align: center;
 margin-bottom: 10px;
 }
 
+textarea {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+height: 26px;
+transition: border .5s;
+}
+
 input {
 text-align: center;
 background-color: #ECF0F1;
