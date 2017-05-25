@@ -7,7 +7,8 @@ from rest_framework.urlpatterns	import format_suffix_patterns
 from models import Author, Books, Genere
 from forms import BooksForm, AuthorForm
 from views import BooksCreate, AuthorCreate, BooksDetail, AuthorDetail, reviewBooks, mainpage, \
-    AuthorDelete, BooksDelete,reviewAuthor, AuthorListAPI, AuthorDetailAPI, BooksListAPI, BooksDetailAPI
+    AuthorDelete, BooksDelete,reviewAuthor, AuthorListAPI, AuthorDetailAPI, BooksListAPI, BooksDetailAPI,\
+    APIBooksReviewList, APIBooksReviewDetail
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name = 'base.html'), name='home'),
@@ -76,6 +77,11 @@ urlpatterns = [
     url(r'^api/author/(?P<pk>\d+)/$', AuthorDetailAPI.as_view(), name='author-detail'),
     url(r'^api/books/$', BooksListAPI.as_view(), name='books-list'),
     url(r'^api/books/(?P<pk>\d+)/$', BooksDetailAPI.as_view(), name='books-detail'),
+
+    url(r'^api/booksreviews/$',
+        APIBooksReviewList.as_view(), name='booksreview-list'),
+    url(r'^api/booksreviews/(?P<pk>\d+)/$',
+        APIBooksReviewDetail.as_view(), name='booksreview-detail'),
 ]
 
 #	Format	suffixes

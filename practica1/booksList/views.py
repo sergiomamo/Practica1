@@ -11,7 +11,7 @@ from rest_framework	import generics
 from rest_framework.decorators	import api_view
 from rest_framework.reverse	import reverse
 from rest_framework.response	import Response
-from serializers import AuthorSerializer, BooksSerializer
+from serializers import AuthorSerializer, BooksSerializer, BooksReviewSerializer
 
 
 def mainpage(request):
@@ -148,3 +148,15 @@ class BooksDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     model = Books
     queryset = Books.objects.all()
     serializer_class = BooksSerializer
+
+
+class APIBooksReviewList(generics.ListCreateAPIView):
+    model = BooksReview
+    queryset = BooksReview.objects.all()
+    serializer_class = BooksReviewSerializer
+
+
+class APIBooksReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = BooksReview
+    queryset = BooksReview.objects.all()
+    serializer_class = BooksReviewSerializer
