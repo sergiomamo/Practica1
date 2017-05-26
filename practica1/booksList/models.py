@@ -8,10 +8,10 @@ class Author(models.Model):
     ''' Author atributes database '''
     name = models.TextField(max_length=50)
     age = models.IntegerField()
-    city = models.TextField(max_length=50, null= True)
-    country = models.TextField(max_length=50, null= True)
-    state = models.TextField(max_length=50, null= True)
-    user = models.ForeignKey(User,default=1)
+    city = models.TextField(max_length=50, null=True)
+    country = models.TextField(max_length=50, null=True)
+    state = models.TextField(max_length=50, null=True)
+    user = models.ForeignKey(User, default=1)
 
     def __unicode__(self):
         return self.name
@@ -24,7 +24,7 @@ class Author(models.Model):
 class Books(models.Model):
     ''' Books atributes database '''
     title = models.TextField(max_length=50)
-    author = models.ForeignKey(Author,default=1)
+    author = models.ForeignKey(Author, default=1)
     isbn = models.IntegerField()
     date = models.DateTimeField(default=date.today())
     editorial = models.TextField(max_length=50)
@@ -32,7 +32,7 @@ class Books(models.Model):
     reviews = models.IntegerField()
     genere = models.TextField(max_length=50)
     numPages = models.IntegerField()
-    user = models.ForeignKey(User,default=1)
+    user = models.ForeignKey(User, default=1)
 
     def __unicode__(self):
         return self.title
@@ -41,12 +41,14 @@ class Books(models.Model):
         return reverse('booksList:books_detail',
                        kwargs={'pk': self.pk})
 
+
 class Genere(models.Model):
     ''' Genere atributes '''
     name = models.TextField(max_length=50)
 
     def __unicode__(self):
         return self.name
+
 
 class Review(models.Model):
     ''' Review atributes '''
@@ -59,9 +61,11 @@ class Review(models.Model):
     class Meta:
         abstract = True
 
+
 class BooksReview(Review):
     ''' Books ForeignKey '''
     books = models.ForeignKey(Books)
+
 
 class AuthorReview(Review):
     ''' Author ForeignKey '''
