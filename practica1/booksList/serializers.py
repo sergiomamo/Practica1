@@ -9,7 +9,7 @@ from models import Author, Books, BooksReview
 class AuthorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Author
-        fields = ('name', 'age', 'country', 'nacionalidad')
+        fields = ('name', 'age', 'country', 'city', 'state')
 
 
 class BooksSerializer(serializers.HyperlinkedModelSerializer):
