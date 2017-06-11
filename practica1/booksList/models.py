@@ -37,6 +37,14 @@ class Books(models.Model):
     def __unicode__(self):
         return self.title
 
+    def averageRating(self):
+        reviewCount = self.booksreview_set.count()
+        if not reviewCount:
+            return 0
+        else:
+            ratingSum = sum([float(review.rating) for review in self.booksreview_set.all()])
+            return ratingSum / reviewCount
+
     def get_absolute_url(self):
         return reverse('booksList:books_detail',
                        kwargs={'pk': self.pk})

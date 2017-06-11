@@ -1,53 +1,68 @@
 {%  extends  "base.html"  %}
     {%  block  content  %}
-        <h1>
-            {{  books.title  }}
-                {%  if  user  ==  books.user  %}
-                    (<a  href="{%  url  'booksList:books_edit'  books.id  %}">edit</a>)
-                    (<a  href="{%  url  'booksList:books_delete'  books.id  %}">delete</a>)
-                {%  endif  %}
-        </h1>
-        <h2>
-            Author:
-        </h2>
-            <p>
-                {{  books.author  }}
-            </p>
-        <h2>
-            Genere:
-        </h2>
-            <p>
-                {{  books.genere  }}
-            </p>
-        <h2>
-            ISBN:
-        </h2>
-            <p>
-                {{  books.isbn  }}
-            </p>
-        <h2>
-            Editorial:
-        </h2>
-            <p>
-                {{  books.editorial  }}
-            </p>
-        <h2>
-            Rating:
-        </h2>
-            <p>
-                {{  books.rating  }}
-            </p>
-
+        <span vocab="http://schema.org/Books" typeof="Books">
+            <h1>
+                <span property="name">{{ books.title }}</span>
+                    {%  if  user  ==  books.user  %}
+                        (<a  href="{%  url  'booksList:books_edit'  books.id  %}">edit</a>)
+                        (<a  href="{%  url  'booksList:books_delete'  books.id  %}">delete</a>)
+                    {%  endif  %}
+            </h1>
+            <h2>
+                Author:
+            </h2>
+                <p>
+                    {{  books.author  }}
+                </p>
+            <h2>
+                Genere:
+            </h2>
+                <p>
+                    {{  books.genere  }}
+                </p>
+            <h2>
+                ISBN:
+            </h2>
+                <p>
+                    {{  books.isbn  }}
+                </p>
+            <h2>
+                Editorial:
+            </h2>
+                <p>
+                    {{  books.editorial  }}
+                </p>
+            <h2>
+                Numero de paginas:
+            </h2>
+                <p>
+                    {{  books.numPages  }}
+                </p>
 <h2>Reviews</h2>
-    <ul>
-        {%  for  review  in  books.booksreview_set.all  %}
-            <li>
-                <p>{{  review.rating  }}  star{{  review.rating|pluralize  }}</p>
-                <p>{{  review.comment  }}</p>
-                <p>Created  by  {{  review.user  }}  on  {{  review.date  }}</p>
-            </li>
-        {%  endfor  %}
-    </ul>
+    <span rel="aggregateRating">
+        <p typeof="AggregateRating">
+        <span property="ratingValue">{{ books.averageRating|stringformat:".1f" }}</span>
+        {% with books.booksreview_set.all|length as reviewCount %}
+        de un maximo de 5 estrellas
+        </br>
+        <span property="reviewCount">{{ reviewCount }} opiniones de usuarios</span>
+        {% endwith %}
+        </p>
+    </span>
+    <span rel="review">
+        <ul typeof="Review">
+            {%  for  review  in  books.booksreview_set.all  %}
+                <li typeof="Review">
+                    <p><span property="Comments">{{  review.comment  }}</span></p>
+                    <span property="worstRating" content="1"></span>
+                    <p><span property="valueRating">{{  review.rating  }} </span> star{{  review.rating|pluralize  }}</p>
+                    <span property="bestRating" content="5"></span>
+                    <p>Created  by  {{  review.user  }}  on  {{  review.date  }}</p>
+                </li>
+            {%  endfor  %}
+        </ul>
+    </span>
+
         <h3>Add Review</h3>
         {%  if  user.is_authenticated  %}
             <form  action="{%  url  'booksList:review_books_create'  books.id  %}"  method="post">
@@ -62,6 +77,7 @@
                 </p>
             <input type="submit"  value="Review"  />
             </form>
+            </span>
         {% else %}
             <p>Please, log in first</p>
         {%  endif  %}

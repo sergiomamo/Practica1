@@ -149,7 +149,6 @@ class BooksDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Books.objects.all()
     serializer_class = BooksSerializer
 
-
 class APIBooksReviewList(generics.ListCreateAPIView):
     model = BooksReview
     queryset = BooksReview.objects.all()
