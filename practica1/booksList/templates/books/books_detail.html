@@ -12,31 +12,31 @@
                 Author:
             </h2>
                 <p>
-                    {{  books.author  }}
+                    <span property="author">{{  books.author  }}</span>
                 </p>
             <h2>
                 Genere:
             </h2>
                 <p>
-                    {{  books.genere  }}
+                    <span property="genere">{{  books.genere  }}</span>
                 </p>
             <h2>
                 ISBN:
             </h2>
                 <p>
-                    {{  books.isbn  }}
+                    <span property="isbn">{{  books.isbn  }}</span>
                 </p>
             <h2>
                 Editorial:
             </h2>
                 <p>
-                    {{  books.editorial  }}
+                    <span property="editorial">{{  books.editorial  }}</span>
                 </p>
             <h2>
                 Numero de paginas:
             </h2>
                 <p>
-                    {{  books.numPages  }}
+                    <span property="numPages">{{  books.numPages  }}</span>
                 </p>
 <h2>Reviews</h2>
     <span rel="aggregateRating">
@@ -49,10 +49,10 @@
         {% endwith %}
         </p>
     </span>
-    <span rel="review">
+    <span rel="Review">
         <ul typeof="Review">
             {%  for  review  in  books.booksreview_set.all  %}
-                <li typeof="Review">
+                <li property="review">
                     <p><span property="Comments">{{  review.comment  }}</span></p>
                     <span property="worstRating" content="1"></span>
                     <p><span property="valueRating">{{  review.rating  }} </span> star{{  review.rating|pluralize  }}</p>
