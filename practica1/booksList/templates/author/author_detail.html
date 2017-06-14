@@ -1,37 +1,38 @@
 {%  extends  "base.html"  %}
     {%  block  content  %}
-        <h1>
-            {{  author.name  }}
-                {%  if  user  ==  author.user  %}
-                    (<a  href="{%  url  'booksList:author_edit'  author.id  %}">edit</a>)
-                    (<a  href="{%  url  'booksList:author_delete'  author.id  %}">delete</a>)
-                {%  endif  %}
-        </h1>
-        <h2>
-            Age:
-        </h2>
-            <p>
-                {{  author.age  }}
-            </p>
-        <h2>
-            City:
-        </h2>
-            <p>
-                {{  author.city  }}
-            </p>
-        <h2>
-            County:
-        </h2>
-            <p>
-                {{  author.country  }}
-            </p>
-        <h2>
-            State:
-        </h2>
-            <p>
-                {{  author.state  }}
-            </p>
-        <h2>
+        <span vocab="http://schema.org/Author" typeof="Author">
+            <h1>
+                <span property="name">{{  author.name  }}</span>
+                    {%  if  user  ==  author.user  %}
+                        (<a  href="{%  url  'booksList:author_edit'  author.id  %}">edit</a>)
+                        (<a  href="{%  url  'booksList:author_delete'  author.id  %}">delete</a>)
+                    {%  endif  %}
+            </h1>
+            <h2>
+                Age:
+            </h2>
+                <p>
+                    <span property="age">{{  author.age  }}</span>
+                </p>
+            <h2>
+                City:
+            </h2>
+                <p>
+                    <span property="city">{{  author.city  }}</span>
+                </p>
+            <h2>
+                County:
+            </h2>
+                <p>
+                    <span property="country">{{  author.country  }}</span>
+                </p>
+            <h2>
+                State:
+            </h2>
+                <p>
+                    <span property="state">{{  author.state  }}</span>
+                </p>
+        </span>
     {%  endblock  %}
 {%  block  footer  %}
     Created  by  {{  author.user  }}
